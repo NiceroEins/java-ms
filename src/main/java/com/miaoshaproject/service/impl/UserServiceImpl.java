@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
     private UserDOMapper userDOMapper;
 
     @Autowired
-    UserPasswordDOMapper userPasswordDOMapper;
+    private UserPasswordDOMapper userPasswordDOMapper;
 
     @Autowired
-    ValidatorImpl validator;
+    private ValidatorImpl validator;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -76,6 +76,27 @@ public class UserServiceImpl implements UserService {
 
         return;
     }
+
+    @Override
+    public UserModel validateLogin(String telephone, String encrptPassword) throws BusinessException {
+        //通过用户的手机获取用户登录信息
+        UserDO userDO = userDOMapper.selectByTelephone(telephone);
+
+        if (userDO==null){
+            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+        }
+
+        UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
+
+        UserModel userModel = convertFromDataObject(userDO,userPasswordDO);
+        //比对用户信息中加密的密码是否与传进来的密码相匹配
+
+        if (!StringUtils.equals(userModel.getEncrptPassword(),encrptPassword)){
+            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+        }
+        return userModel;
+    }
+
     private UserPasswordDO convertPasswordFromModel(UserModel userModel){
         if (userModel == null){
             return null;

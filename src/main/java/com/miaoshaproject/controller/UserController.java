@@ -31,7 +31,7 @@ public class UserController extends BaseController{
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @RequestMapping(value = "/register", method = {RequestMethod.POST})
+    @RequestMapping(value = "/register", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
     public CommonRetunType register(@RequestParam(name = "telephone")String telephone,
@@ -68,7 +68,31 @@ public class UserController extends BaseController{
         return  newstr;
     }
 
-    @RequestMapping(value = "/getotp", method = {RequestMethod.POST})
+    @RequestMapping(value = "/login", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
+    public CommonRetunType login(@RequestParam(name = "telephone") String telephone,
+                                 @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+
+        //入参校验
+        if (StringUtils.isEmpty(telephone) ||
+        StringUtils.isEmpty(password)){
+            throw new BusinessException(EmBusinessError.PARAMETER_VLIDATION_ERROR);
+        }
+
+        //用户登录服务，校验用户登录是否合法
+        UserModel userModel = userService.validateLogin(telephone,this.EncodeByMD5(password));
+
+        UserVO userVO = convertFromModel(userModel);
+
+        //将登录凭证加入到用户登录成功session内
+        this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
+        this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userVO);
+
+        return CommonRetunType.create(null);
+    }
+
+    @RequestMapping(value = "/getotp", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
     public CommonRetunType getOTP(@RequestParam(name="telephone")String telephone){
