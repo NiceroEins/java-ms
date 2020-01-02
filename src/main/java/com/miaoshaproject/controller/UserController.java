@@ -23,6 +23,7 @@ import java.util.Random;
 
 @Controller("user")
 @RequestMapping("/user")
+@CrossOrigin(origins = {"*"}, allowCredentials = "true")
 public class UserController extends BaseController{
 
     @Autowired
@@ -33,7 +34,6 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = "/register", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
-    @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
     public CommonRetunType register(@RequestParam(name = "telephone")String telephone,
                                     @RequestParam(name = "otpCode")String otpCode,
                                     @RequestParam(name = "name")String name,
@@ -70,7 +70,6 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
-    @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
     public CommonRetunType login(@RequestParam(name = "telephone") String telephone,
                                  @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
 
@@ -94,7 +93,6 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = "/getotp", method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
-    @CrossOrigin(allowCredentials = "true",allowedHeaders = "true")
     public CommonRetunType getOTP(@RequestParam(name="telephone")String telephone){
         //按照一定规则生成OTP验证码
         Random random = new Random();

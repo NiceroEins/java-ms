@@ -73,7 +73,7 @@
             &lt;!&ndash; 用于指定生成实体类时是否使用实际的列名作为实体类的属性名。false是 Camel Case风格&ndash;&gt;
             <property name="useActualColumnNames" value="false" />
         </table>-->
-        <table tableName="j_user_info" domainObjectName="UserDO"
+        <!--<table tableName="j_user_info" domainObjectName="UserDO"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
@@ -81,5 +81,13 @@
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
+        <table tableName="j_item" domainObjectName="ItemDO"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+        <table tableName="j_item_stock" domainObjectName="ItemStockDO"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
     </context>
 </generatorConfiguration>

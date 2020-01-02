@@ -55,6 +55,10 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-logging</artifactId>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -144,7 +148,7 @@
           <!--允许移动生成的文件-->
           <verbose>true</verbose>
           <!--允许自动覆盖文件-->
-          <overwrite>true</overwrite>
+          <overwrite>false</overwrite>
           <configurationFile>
             src/main/resources/mybatis-generator.xml
           </configurationFile>
