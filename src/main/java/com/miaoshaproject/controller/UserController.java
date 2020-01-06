@@ -82,11 +82,9 @@ public class UserController extends BaseController{
         //用户登录服务，校验用户登录是否合法
         UserModel userModel = userService.validateLogin(telephone,this.EncodeByMD5(password));
 
-        UserVO userVO = convertFromModel(userModel);
-
         //将登录凭证加入到用户登录成功session内
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
-        this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userVO);
+        this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
 
         return CommonRetunType.create(null);
     }

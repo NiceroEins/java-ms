@@ -108,6 +108,11 @@
       item_id = #{itemId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="decreaseStock" parameterType="java.lang.Integer">
+    update j_item_stock
+    set stock = stock-#{amount,jdbcType=INTEGER}
+    where item_id = #{itemId,jdbcType=INTEGER} AND stock>= #{amount,jdbcType=INTEGER}
+  </update>
   <select id="selectByItemId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

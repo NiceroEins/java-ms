@@ -33,6 +33,7 @@ public class BaseController {
             responseData.put("errCode",businessException.getErrCode());
             responseData.put("errMsg",businessException.getErrMsg());
         }else {
+            System.out.println(ex.getLocalizedMessage()+ex.getMessage());
             responseData.put("errCode", EmBusinessError.SYSTEM_ERROR.getErrCode());
             responseData.put("errMsg",EmBusinessError.SYSTEM_ERROR.getErrMsg());
         }
